@@ -1,6 +1,6 @@
 import Image, { StaticImageData } from "next/image";
 import eu from "@/public/assets/eu.jpg";
-import eusection from "@/public/assets/eu-section.png";
+import eusection from "@/public/assets/euteste.jpg";
 import city from "@/public/assets/modern.jpg";
 import project1 from "@/public/assets/project1.jpg";
 import project2 from "@/public/assets/project2.jpg";
