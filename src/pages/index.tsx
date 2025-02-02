@@ -189,10 +189,9 @@ export default function Home() {
                   </p>
                 </div>
                 <a
-                  href="https://dl.dropboxusercontent.com/scl/fi/n3x6qj42yoe6t2j8bmg3z/CurricoloBraga.pdf?rlkey=80d4441prc3tq9v3ekv452n0p&st=gz7vfabo&dl=0"
+                  href="https://www.dropbox.com/scl/fi/k3cz0sokb2qqf6p8a1ec6/Curr-culo-Gabriel-Braga.pdf?rlkey=cjjhrai2rulijru1pougnbn2c&st=ple8w2q0&dl=1"
                   download="Curriculo_Gabriel_Braga.pdf"
                   className="mt-6 bg-[#FF6B6B] text-white px-6 py-2 rounded-md font-semibold hover:bg-red-600 transition-all inline-block text-center"
-                  target="_blank"
                 >
                   DOWNLOAD CV
                 </a>
