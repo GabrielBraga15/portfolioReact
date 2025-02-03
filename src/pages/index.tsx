@@ -293,7 +293,7 @@ export default function Home() {
             { name: "CSS", image: css },
             { name: "JavaScript", image: js },
             { name: "React", image: react },
-            { name: "Angular.js", image: angular },
+            { name: "Angular", image: angular },
             { name: "Typescript", image: typescript },
             { name: "Tailwind", image: tailwind },
             { name: "Boostrap", image: bootstrap },
