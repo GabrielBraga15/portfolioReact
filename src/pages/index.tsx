@@ -189,7 +189,7 @@ export default function Home() {
                   </p>
                 </div>
                 <a
-                  href="https://www.dropbox.com/scl/fi/k3cz0sokb2qqf6p8a1ec6/Curr-culo-Gabriel-Braga.pdf?rlkey=cjjhrai2rulijru1pougnbn2c&st=ple8w2q0&dl=1"
+                  href="https://www.dropbox.com/scl/fi/y1yel9v46371kul3qizhz/Gabriel_Braga_Curriculo.pdf?rlkey=gk2gtr7jtyncje2r93uo2xcro&st=xnh9yd17&dl=1"
                   download="Curriculo_Gabriel_Braga.pdf"
                   className="mt-6 bg-[#FF6B6B] text-white px-6 py-2 rounded-md font-semibold hover:bg-red-600 transition-all inline-block text-center"
                 >
