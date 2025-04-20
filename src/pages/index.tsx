@@ -1,5 +1,5 @@
 import Image, { StaticImageData } from "next/image";
-import eu from "@/public/assets/eu.jpg";
+import eu from "@/public/assets/eu.png";
 import eusection from "@/public/assets/euteste.jpg";
 import city from "@/public/assets/modern.jpg";
 import project1 from "@/public/assets/project1.jpg";
@@ -9,10 +9,12 @@ import project4 from "@/public/assets/project4.jpg";
 import project5 from "@/public/assets/project5.jpg";
 import project8 from "@/public/assets/project8.jpeg";
 import project9 from "@/public/assets/project9.jpg";
+import project10 from "@/public/assets/project10.jpeg";
 import angular from "@/public/assets/angular.png";
 import react from "@/public/assets/react.png";
 import tailwind from "@/public/assets/tailwindcss.png";
 import bootstrap from "@/public/assets/bootstrap.png";
+import kotlin from "@/public/assets/kotlin.png";
 import css from "@/public/assets/css.png";
 import html from "@/public/assets/html.png";
 import typescript from "@/public/assets/typescript.png";
@@ -80,6 +82,14 @@ const projects = [
     image: project9,
     tecnology: "React",
   },
+  {
+    id: 8,
+    title: "Mavi APP",
+    description:
+      "Desenvolvimento de aplicativo mobile Android para capacitação de equipes comerciais, com foco em reprodução de vídeos e áudios, navegação intuitiva, identidade visual personalizada e integração com links externos.",
+    image: project10,
+    tecnology: "Kotlin",
+  },
 ];
 
 export default function Home() {
@@ -116,7 +126,7 @@ export default function Home() {
             id="inicio"
             className="flex flex-col items-center justify-center mt-10 pt-28"
           >
-            <div className="w-60 h-60 rounded-full overflow-hidden border-2 border-transparent mb-4">
+            <div className="w-60 h-60 rounded-full overflow-hidden border-2 border-transparent mb-4 animate-float">
               <Image
                 src={eu}
                 alt="Foto de Gabriel Braga"
@@ -132,7 +142,7 @@ export default function Home() {
 
           <section className="bg-primary flex flex-col lg:flex-row px-10 py-36 w-full ">
             {/* Imagem - 30% */}
-            <div className="flex-[5] lg:flex-[4] flex justify-center pb-16 lg:pb-0 lg:justify-end lg:pr-20  items-center">
+            <div className="flex-[5] lg:flex-[4] flex justify-center pb-16 lg:pb-0 lg:justify-end lg:pr-20  items-center animate-float">
               <Image
                 className="border rounded-lg border-transparent w-full max-w-[400px]"
                 src={eusection}
@@ -159,9 +169,10 @@ export default function Home() {
 
               <div className="text-white mb-6 max-w-3xl lg:text-2xl">
                 Sou graduado em Análise e Desenvolvimento de Sistemas e
-                atualmente estou cursando pós-graduação em Desenvolvimento Full
-                Stack, trabalho como desenvolvedor Front End onde atuo com as
-                linguagens React e TypeScript.
+                atualmente curso uma pós-graduação em Desenvolvimento Full
+                Stack. Tenho experiência como desenvolvedor front-end e mobile,
+                atuando no desenvolvimento de interfaces modernas, responsivas e
+                focadas na experiência do usuário.
               </div>
 
               {/* Cartão de informações */}
@@ -189,7 +200,8 @@ export default function Home() {
                   </p>
                 </div>
                 <a
-                  href="https://www.dropbox.com/scl/fi/y1yel9v46371kul3qizhz/Gabriel_Braga_Curriculo.pdf?rlkey=gk2gtr7jtyncje2r93uo2xcro&st=xnh9yd17&dl=1"
+                  href="https://www.dropbox.com/scl/fi/k3cz0sokb2qqf6p8a1ec6/Curr-culo-Gabriel-Braga.pdf?rlkey=cjjhrai2rulijru1pougnbn2c&st=j2ri6vzo&dl=1
+"
                   download="Curriculo_Gabriel_Braga.pdf"
                   className="mt-6 bg-[#FF6B6B] text-white px-6 py-2 rounded-md font-semibold hover:bg-red-600 transition-all inline-block text-center"
                 >
@@ -297,6 +309,7 @@ export default function Home() {
             { name: "Typescript", image: typescript },
             { name: "Tailwind", image: tailwind },
             { name: "Boostrap", image: bootstrap },
+            { name: "Kotlin", image: kotlin },
           ].map((skill, index) => (
             <div
               key={index}

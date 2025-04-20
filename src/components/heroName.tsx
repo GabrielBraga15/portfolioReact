@@ -19,7 +19,7 @@ export default function HeroSection() {
       <div className="text-base sm:text-lg text-white pb-28 font-montserrat lg:text-2xl">
         <Typewriter
           options={{
-            strings: ["Desenvolvedor Front End", "React | Next | Angular"],
+            strings: ["Desenvolvedor Front End | Mobile", "React | Next | Kotlin"],
             autoStart: true,
             loop: true,
             delay: 80,
