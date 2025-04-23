@@ -126,15 +126,15 @@ export default function Home() {
             id="inicio"
             className="flex flex-col items-center justify-center mt-10 pt-28"
           >
-            <div className="w-60 h-60 rounded-full overflow-hidden border-2 border-transparent mb-4 animate-float">
+            <div className="relative w-60 h-60 rounded-full overflow-hidden border-2 border-transparent mb-4 animate-float">
               <Image
                 src={eu}
                 alt="Foto de Gabriel Braga"
-                width={240}
-                height={260}
-                className="h-full object-cover"
+                fill
+                className="object-cover"
               />
             </div>
+
             <div>
               <HeroSection />
             </div>
