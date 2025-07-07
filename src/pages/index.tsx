@@ -170,9 +170,11 @@ export default function Home() {
               <div className="text-white mb-6 max-w-3xl lg:text-2xl">
                 Sou graduado em Análise e Desenvolvimento de Sistemas e
                 atualmente curso uma pós-graduação em Desenvolvimento Full
-                Stack. Tenho experiência como desenvolvedor front-end e mobile,
+                Stack. Tenho experiência como desenvolvedor mobile e full stack,
                 atuando no desenvolvimento de interfaces modernas, responsivas e
-                focadas na experiência do usuário.
+                focadas na experiência do usuário. Atualmente trabalho com
+                Python, SQL e participei de projetos mobile, ampliando minha
+                atuação em diferentes camadas do desenvolvimento de software.
               </div>
 
               {/* Cartão de informações */}

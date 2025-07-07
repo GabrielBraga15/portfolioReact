@@ -11,15 +11,15 @@ export default function HeroSection() {
             strings: ["Gabriel Braga"],
             autoStart: true,
             loop: true,
-            delay: 100, 
-            deleteSpeed: 50, 
+            delay: 100,
+            deleteSpeed: 50,
           }}
         />
       </h1>
       <div className="text-base sm:text-lg text-white pb-28 font-montserrat lg:text-2xl">
         <Typewriter
           options={{
-            strings: ["Desenvolvedor Front End | Mobile", "React | Next | Kotlin"],
+            strings: ["Desenvolvedor Fullstack", "React | Python | SQL"],
             autoStart: true,
             loop: true,
             delay: 80,
