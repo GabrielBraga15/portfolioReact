@@ -17,6 +17,7 @@ import bootstrap from "@/public/assets/bootstrap.png";
 import kotlin from "@/public/assets/kotlin.png";
 import css from "@/public/assets/css.png";
 import html from "@/public/assets/html.png";
+import python from "@/public/assets/python.png";
 import typescript from "@/public/assets/typescript.png";
 import js from "@/public/assets/js.png";
 import { useState } from "react";
@@ -312,6 +313,7 @@ export default function Home() {
             { name: "Tailwind", image: tailwind },
             { name: "Boostrap", image: bootstrap },
             { name: "Kotlin", image: kotlin },
+            { name: "Python", image: python },
           ].map((skill, index) => (
             <div
               key={index}
