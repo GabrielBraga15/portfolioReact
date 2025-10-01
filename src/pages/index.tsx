@@ -25,7 +25,6 @@ import ContactForm from "./form/page";
 import HeroSection from "@/components/heroName";
 import Navbar from "@/components/nav";
 import Link from "next/link";
-import { link } from "fs";
 import { Url } from "url";
 
 const projects = [
