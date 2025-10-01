@@ -24,6 +24,9 @@ import { useState } from "react";
 import ContactForm from "./form/page";
 import HeroSection from "@/components/heroName";
 import Navbar from "@/components/nav";
+import Link from "next/link";
+import { link } from "fs";
+import { Url } from "url";
 
 const projects = [
   {
@@ -33,6 +36,7 @@ const projects = [
       "Desenvolvimento de website institucional para uma empresa de logística, com foco na apresentação de serviços, usabilidade otimizada e design responsivo.",
     image: project1,
     tecnology: "Next | TailwindCss",
+    link: "https://tempocerto.inf.br/?utm_source=Google&utm_medium=cpc&utm_campaign=Pesquisa%20-%20Institucional&gad_source=1&gad_campaignid=22508322878&gclid=Cj0KCQjwovPGBhDxARIsAFhgkwRgoK8bnATu4A51hWEvlsipAWHIGUZn_f-X_0fOltgnumAvGw0vu9MaAmnVEALw_wcB",
   },
   {
     id: 2,
@@ -41,6 +45,7 @@ const projects = [
       "Web site desenvolvido para mostrar um calendário personalizado da empresa Martins, com datas estratégicas, dicas específicas para o sucesso e sugestão de mix para impulsionar vendas em cada ação comercial.",
     image: project2,
     tecnology: "Html | TailwindCss | Javascript",
+    link: "https://www.martinsatacado.com.br/hotsite/calendario",
   },
   {
     id: 3,
@@ -49,6 +54,7 @@ const projects = [
       "Página desenvolvida para a empresa Martins, a finalidade do site é passar dicas de seguranças para os clientes referente as vendas e procedimentos da empresa.",
     image: project3,
     tecnology: "Html | TailwindCss | Javascript",
+    link: "https://www.martinsatacado.com.br/hotsite/guia-de-seguranca",
   },
   {
     id: 4,
@@ -57,6 +63,7 @@ const projects = [
       "Projeto desenvolvido para um processo seletivo do meu primeiro emprego como desenvolvedor.",
     image: project4,
     tecnology: "Next | TailwindCss",
+    link: "https://github.com/GabrielBraga15/ecommerce/tree/main",
   },
   {
     id: 5,
@@ -65,6 +72,7 @@ const projects = [
       "Projeto desenvolvido para uma empresa com a finalidade de calcular o uso de gás de acordo com as informações preenchidas pelo cliente no formulário.",
     image: project5,
     tecnology: "React",
+    link: "PROJETO PRIVADO",
   },
 
   {
@@ -74,6 +82,7 @@ const projects = [
       "Desenvolvimento de uma API responsável por extrair dados do sistema Uniplus, transformá-los em XML e transmiti-los para a API de uma conciliadora bancária, garantindo integração eficiente e segura.",
     image: project8,
     tecnology: "Python | PostgreeSQL",
+    link: "PROJETO PRIVADO",
   },
   {
     id: 7,
@@ -82,6 +91,7 @@ const projects = [
       "Desenvolvimento de uma landing page para destacar os serviços de uma barbearia, com design moderno, navegação intuitiva e otimização para conversões.",
     image: project9,
     tecnology: "React",
+    link: "https://ismaelbarbearia.netlify.app/",
   },
   {
     id: 8,
@@ -90,11 +100,14 @@ const projects = [
       "Desenvolvimento de aplicativo mobile Android para capacitação de equipes comerciais, com foco em reprodução de vídeos e áudios, navegação intuitiva, identidade visual personalizada e integração com links externos.",
     image: project10,
     tecnology: "Kotlin",
+    link: "PROJETO PRIVADO",
   },
 ];
 
 export default function Home() {
   const [selectedProject, setSelectedProject] = useState<{
+    link: Url | string;
+    private?: string;
     id: number;
     title: string;
     description: string;
@@ -187,7 +200,7 @@ export default function Home() {
                   </p>
                   <p>
                     <span className="font-semibold text-[#FF6B6B]">Idade:</span>{" "}
-                    21
+                    22
                   </p>
                   <p>
                     <span className="font-semibold text-[#FF6B6B]">
@@ -274,8 +287,26 @@ export default function Home() {
                 <p className="mb-4 text-gray-200">
                   {selectedProject.description}
                 </p>
-                <p className="text-sm text-gray-400">
+                <p className="text-sm text-gray-400 mb-2">
                   Tecnologias usadas: {selectedProject.tecnology}
+                </p>
+                <p className="mb-4 text-gray-400">
+                  <div className="flex text-sm flex-row gap-2">
+                    Link ou repositório do projeto:{" "}
+                    {selectedProject.link === "PROJETO PRIVADO" ? (
+                      <span className="text-[#FF6B6B]">Projeto Privado</span>
+                    ) : (
+                      <Link
+                        target="_blank"
+                        href={selectedProject.link}
+                        passHref
+                      >
+                        <p className="text-[#FF6B6B] hover:underline">
+                          Clique aqui
+                        </p>
+                      </Link>
+                    )}
+                  </div>
                 </p>
                 <button
                   className="mt-4 bg-[#FF6B6B] hover:bg-red-600 px-4 py-2 rounded-md"
