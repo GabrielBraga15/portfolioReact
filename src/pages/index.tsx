@@ -1,5 +1,5 @@
 import Image, { StaticImageData } from "next/image";
-import eu from "@/public/assets/eu.png";
+import eu from "@/public/assets/eu.jpg";
 import eusection from "@/public/assets/euteste.jpg";
 import city from "@/public/assets/modern.jpg";
 import project1 from "@/public/assets/project1.jpg";
@@ -10,6 +10,7 @@ import project5 from "@/public/assets/project5.jpg";
 import project8 from "@/public/assets/project8.jpeg";
 import project9 from "@/public/assets/project9.jpg";
 import project10 from "@/public/assets/project10.jpeg";
+import project11 from "@/public/assets/project11.jpg";
 import angular from "@/public/assets/angular.png";
 import react from "@/public/assets/react.png";
 import tailwind from "@/public/assets/tailwindcss.png";
@@ -20,6 +21,7 @@ import html from "@/public/assets/html.png";
 import python from "@/public/assets/python.png";
 import typescript from "@/public/assets/typescript.png";
 import js from "@/public/assets/js.png";
+import sql from "@/public/assets/sql.png";
 import { useState } from "react";
 import ContactForm from "./form/page";
 import HeroSection from "@/components/heroName";
@@ -98,6 +100,15 @@ const projects = [
     description:
       "Desenvolvimento de aplicativo mobile Android para capacitação de equipes comerciais, com foco em reprodução de vídeos e áudios, navegação intuitiva, identidade visual personalizada e integração com links externos.",
     image: project10,
+    tecnology: "Kotlin",
+    link: "PROJETO PRIVADO",
+  },
+  {
+    id: 9,
+    title: "Book",
+    description:
+      "Desenvolvimento de um projeto voltado para exibir dados para empresas sobre faturamento, impostos e comissões, facilitando a análise financeira e tomada de decisões estratégicas.",
+    image: project11,
     tecnology: "Kotlin",
     link: "PROJETO PRIVADO",
   },
@@ -344,6 +355,7 @@ export default function Home() {
             { name: "Boostrap", image: bootstrap },
             { name: "Kotlin", image: kotlin },
             { name: "Python", image: python },
+            { name: "SQL", image: sql },
           ].map((skill, index) => (
             <div
               key={index}
