@@ -124,7 +124,21 @@ export default function Home() {
     image: StaticImageData;
     tecnology: string;
   } | null>(null);
+  const getAge = (birthDateString: string) => {
+    const today = new Date();
+    const birthDate = new Date(birthDateString);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
 
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    return age;
+  };
+
+  // Se seu aniversário é 15/07 e você tem 23 anos em 2026, seu ano de nascimento é 2003
+  const age = getAge("2003-07-15");
   return (
     <div>
       <div className="relative min-h-fit flex flex-col items-center justify-center ">
@@ -210,7 +224,7 @@ export default function Home() {
                   </p>
                   <p>
                     <span className="font-semibold text-[#FF6B6B]">Idade:</span>{" "}
-                    22
+                    {age} anos
                   </p>
                   <p>
                     <span className="font-semibold text-[#FF6B6B]">
