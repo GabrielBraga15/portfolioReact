@@ -3,8 +3,17 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { LANGS, useLang } from "@/lib/i18n";
 
-const CV =
-  "https://www.dropbox.com/scl/fi/k3cz0sokb2qqf6p8a1ec6/Curr-culo-Gabriel-Braga.pdf?rlkey=cjjhrai2rulijru1pougnbn2c&st=j2ri6vzo&dl=1";
+// Um currículo por idioma: pt (padrão) no Dropbox, en/es em public/.
+const CV = {
+  pt: "https://www.dropbox.com/scl/fi/k3cz0sokb2qqf6p8a1ec6/Curr-culo-Gabriel-Braga.pdf?rlkey=cjjhrai2rulijru1pougnbn2c&st=j2ri6vzo&dl=1",
+  en: "/cv-en.pdf",
+  es: "/cv-es.pdf",
+} as const;
+const CV_NAME = {
+  pt: "Curriculo_Gabriel_Braga.pdf",
+  en: "Resume_Gabriel_Braga.pdf",
+  es: "Curriculum_Gabriel_Braga.pdf",
+} as const;
 
 export default function Navbar() {
   const { lang, setLang, t } = useLang();
@@ -52,8 +61,8 @@ export default function Navbar() {
             ))}
           </div>
           <a
-            href={CV}
-            download="Curriculo_Gabriel_Braga.pdf"
+            href={CV[lang]}
+            download={CV_NAME[lang]}
             className="hidden rounded-md border border-accent px-4 py-1.5 font-mono text-xs text-accent transition-colors hover:bg-accent hover:text-bg sm:block"
           >
             {t.nav.cv}
@@ -88,8 +97,8 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href={CV}
-            download="Curriculo_Gabriel_Braga.pdf"
+            href={CV[lang]}
+            download={CV_NAME[lang]}
             className="mt-2 rounded-md border border-accent px-4 py-2 text-center text-accent"
           >
             {t.nav.cv}
