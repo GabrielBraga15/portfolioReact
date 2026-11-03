@@ -4,24 +4,19 @@ export default {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
-      keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
-        },
-      },
-      animation: {
-        float: 'float 3s ease-in-out infinite',
-      },
       fontFamily: {
-        montserrat: ["Montserrat", "sans-serif"],
+        display: ["var(--font-display)", "sans-serif"],
+        sans: ["var(--font-sans)", "sans-serif"],
+        mono: ["var(--font-mono)", "monospace"],
       },
       colors: {
-        primary: "#1E2232",
+        bg: "#0a0d14",
+        card: "#0f131c",
+        line: "#1a2030",
+        accent: "#22d3ee",
       },
     },
   },

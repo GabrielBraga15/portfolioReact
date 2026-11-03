@@ -1,14 +1,20 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import { Montserrat } from "next/font/google";
+import { LangProvider } from "@/lib/i18n";
+import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 
-// Instanciando a fonte com pesos específicos
-const montserrat = Montserrat({ subsets: ["latin"], weight: ["400", "700"] });
+const display = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" });
+const sans = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <main className={montserrat.className}>
-      <Component {...pageProps} />
+    <main
+      className={`${display.variable} ${sans.variable} ${mono.variable} font-sans`}
+    >
+      <LangProvider>
+        <Component {...pageProps} />
+      </LangProvider>
     </main>
   );
 }

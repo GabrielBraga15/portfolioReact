@@ -1,86 +1,102 @@
 "use client";
-import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react"; // Ícones do Lucide
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
+import { LANGS, useLang } from "@/lib/i18n";
+
+const CV =
+  "https://www.dropbox.com/scl/fi/k3cz0sokb2qqf6p8a1ec6/Curr-culo-Gabriel-Braga.pdf?rlkey=cjjhrai2rulijru1pougnbn2c&st=j2ri6vzo&dl=1";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [navbarBg, setNavbarBg] = useState("bg-transparent");
-  const [scrollPosition, setScrollPosition] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollPosition(window.scrollY);
-    };
-
-    const updateNavbarBg = () => {
-      if (isOpen) {
-        setNavbarBg("bg-primary shadow-md");
-      } else if (scrollPosition > window.innerHeight * 0.3) {
-        setNavbarBg("bg-primary shadow-md");
-      } else {
-        setNavbarBg("bg-transparent");
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    updateNavbarBg();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [scrollPosition, isOpen]);
+  const { lang, setLang, t } = useLang();
+  const [open, setOpen] = useState(false);
+  const links = [
+    { label: t.nav.about, id: "sobre" },
+    { label: t.nav.stack, id: "stack" },
+    { label: t.nav.projects, id: "projetos" },
+    { label: t.nav.contact, id: "contato" },
+  ];
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out ${navbarBg}`}>
-      <div className="flex justify-between sm:justify-center items-center px-6 py-4">
-        <div className="text-white text-2xl font-bold sm:hidden">Gabriel Braga</div>
+    <header className="sticky top-0 z-50 border-b border-line bg-bg/80 backdrop-blur">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
+        <a href="#" className="font-mono text-sm text-white">
+          <span className="text-accent">&lt;</span> gabriel.braga{" "}
+          <span className="text-accent">/&gt;</span>
+        </a>
+        <div className="flex items-center gap-6">
+          <div className="hidden gap-8 font-mono text-xs text-slate-400 md:flex">
+            {links.map((l) => (
+              <a
+                key={l.id}
+                href={`#${l.id}`}
+                className="transition-colors hover:text-accent"
+              >
+                {l.label}
+              </a>
+            ))}
+          </div>
+          <div className="flex overflow-hidden rounded-md border border-line font-mono text-xs">
+            {LANGS.map((l) => (
+              <button
+                key={l}
+                onClick={() => setLang(l)}
+                aria-pressed={lang === l}
+                className={`px-2.5 py-1.5 uppercase transition-colors ${
+                  lang === l
+                    ? "bg-accent text-bg"
+                    : "text-slate-400 hover:text-accent"
+                }`}
+              >
+                {l}
+              </button>
+            ))}
+          </div>
+          <a
+            href={CV}
+            download="Curriculo_Gabriel_Braga.pdf"
+            className="hidden rounded-md border border-accent px-4 py-1.5 font-mono text-xs text-accent transition-colors hover:bg-accent hover:text-bg sm:block"
+          >
+            {t.nav.cv}
+          </a>
+          <button
+            onClick={() => setOpen(!open)}
+            aria-label="Menu"
+            aria-expanded={open}
+            className="text-white md:hidden"
+          >
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </nav>
 
-        {/* Menu Desktop */}
-        <div className="hidden md:flex gap-10">
-          {[
-            { label: "Início", id: "inicio" },
-            { label: "Sobre", id: "sobre" },
-            { label: "Projetos", id: "projetos" },
-            { label: "Habilidades", id: "habilidades" },
-            { label: "Contato", id: "contato" },
-          ].map((item, index) => (
+      <div
+        inert={!open}
+        className={`grid transition-all duration-300 ease-out md:hidden ${
+          open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <div className="overflow-hidden">
+        <div className="flex flex-col gap-1 border-t border-line px-6 py-3 font-mono text-sm">
+          {links.map((l) => (
             <a
-              key={index}
-              href={`#${item.id}`}
-              className="text-white hover:text-[#FF6B6B] text-lg transition-all"
+              key={l.id}
+              href={`#${l.id}`}
+              onClick={() => setOpen(false)}
+              className="py-2 text-slate-300 transition-colors hover:text-accent"
             >
-              {item.label}
+              {l.label}
             </a>
           ))}
+          <a
+            href={CV}
+            download="Curriculo_Gabriel_Braga.pdf"
+            className="mt-2 rounded-md border border-accent px-4 py-2 text-center text-accent"
+          >
+            {t.nav.cv}
+          </a>
         </div>
-
-        {/* Botão do Menu Hambúrguer (Mobile) */}
-        <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        </div>
       </div>
-
-      {/* Menu Mobile */}
-      {isOpen && (
-        <div className="md:hidden bg-primary flex flex-col items-center py-4 gap-4">
-          {[
-            { label: "Início", id: "inicio" },
-            { label: "Sobre", id: "sobre" },
-            { label: "Projetos", id: "projetos" },
-            { label: "Habilidades", id: "habilidades" },
-            { label: "Contato", id: "contato" },
-          ].map((item, index) => (
-            <a
-              key={index}
-              href={`#${item.id}`}
-              className="text-white text-lg hover:text-[#FF6B6B] transition-all"
-              onClick={() => setIsOpen(false)}
-            >
-              {item.label}
-            </a>
-          ))}
-        </div>
-      )}
-    </nav>
+    </header>
   );
 }
