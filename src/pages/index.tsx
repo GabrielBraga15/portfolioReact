@@ -1,7 +1,18 @@
 import Image, { StaticImageData } from "next/image";
-import eu from "@/public/assets/eu.jpg";
-import eusection from "@/public/assets/euteste.jpg";
-import city from "@/public/assets/modern.jpg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faGithub,
+  faLinkedinIn,
+  faWhatsapp,
+} from "@fortawesome/free-brands-svg-icons";
+import { ArrowRight, ArrowUpRight, Code2, Lock } from "lucide-react";
+import Navbar from "@/components/nav";
+import HeroName from "@/components/heroName";
+import Reveal from "@/components/reveal";
+import Portrait from "@/components/portrait";
+import BgVideo from "@/components/bgVideo";
+import { useLang } from "@/lib/i18n";
+import ContactForm from "@/components/contactForm";
 import project1 from "@/public/assets/project1.jpg";
 import project2 from "@/public/assets/project2.jpg";
 import project3 from "@/public/assets/project3.jpg";
@@ -11,389 +22,371 @@ import project8 from "@/public/assets/project8.jpeg";
 import project9 from "@/public/assets/project9.jpg";
 import project10 from "@/public/assets/project10.jpeg";
 import project11 from "@/public/assets/project11.jpg";
-import angular from "@/public/assets/angular.png";
-import react from "@/public/assets/react.png";
-import tailwind from "@/public/assets/tailwindcss.png";
-import bootstrap from "@/public/assets/bootstrap.png";
-import kotlin from "@/public/assets/kotlin.png";
-import css from "@/public/assets/css.png";
-import html from "@/public/assets/html.png";
-import python from "@/public/assets/python.png";
-import typescript from "@/public/assets/typescript.png";
-import js from "@/public/assets/js.png";
-import sql from "@/public/assets/sql.png";
-import { useState } from "react";
-import ContactForm from "./form/page";
-import HeroSection from "@/components/heroName";
-import Navbar from "@/components/nav";
-import Link from "next/link";
-import { Url } from "url";
+import project12 from "@/public/assets/project12.png";
+import project13 from "@/public/assets/project13.png";
+import project14 from "@/public/assets/project14.png";
 
-const projects = [
+type Project = {
+  title: string;
+  image: StaticImageData;
+  stack: string[];
+  code?: string;
+  demo?: string;
+};
+
+// Sem code/demo = projeto privado.
+const projects: Project[] = [
   {
-    id: 1,
     title: "Tempo Certo",
-    description:
-      "Desenvolvimento de website institucional para uma empresa de logística, com foco na apresentação de serviços, usabilidade otimizada e design responsivo.",
     image: project1,
-    tecnology: "Next | TailwindCss",
-    link: "https://tempocerto.inf.br/?utm_source=Google&utm_medium=cpc&utm_campaign=Pesquisa%20-%20Institucional&gad_source=1&gad_campaignid=22508322878&gclid=Cj0KCQjwovPGBhDxARIsAFhgkwRgoK8bnATu4A51hWEvlsipAWHIGUZn_f-X_0fOltgnumAvGw0vu9MaAmnVEALw_wcB",
+    stack: ["Next", "Tailwind"],
+    demo: "https://tempocerto.inf.br/",
   },
   {
-    id: 2,
     title: "Martins Calendar",
-    description:
-      "Web site desenvolvido para mostrar um calendário personalizado da empresa Martins, com datas estratégicas, dicas específicas para o sucesso e sugestão de mix para impulsionar vendas em cada ação comercial.",
     image: project2,
-    tecnology: "Html | TailwindCss | Javascript",
-    link: "https://www.martinsatacado.com.br/hotsite/calendario",
+    stack: ["HTML", "Tailwind", "JavaScript"],
   },
   {
-    id: 3,
     title: "Guia De Segurança",
-    description:
-      "Página desenvolvida para a empresa Martins, a finalidade do site é passar dicas de seguranças para os clientes referente as vendas e procedimentos da empresa.",
     image: project3,
-    tecnology: "Html | TailwindCss | Javascript",
-    link: "https://www.martinsatacado.com.br/hotsite/guia-de-seguranca",
+    stack: ["HTML", "Tailwind", "JavaScript"],
   },
   {
-    id: 4,
     title: "Flow eCommerce",
-    description:
-      "Projeto desenvolvido para um processo seletivo do meu primeiro emprego como desenvolvedor.",
     image: project4,
-    tecnology: "Next | TailwindCss",
-    link: "https://github.com/GabrielBraga15/ecommerce/tree/main",
+    stack: ["Next", "Tailwind"],
+    code: "https://github.com/GabrielBraga15/ecommerce/tree/main",
   },
   {
-    id: 5,
     title: "Ultra Gás Simulator",
-    description:
-      "Projeto desenvolvido para uma empresa com a finalidade de calcular o uso de gás de acordo com as informações preenchidas pelo cliente no formulário.",
     image: project5,
-    tecnology: "React",
-    link: "PROJETO PRIVADO",
+    stack: ["React"],
   },
-
   {
-    id: 6,
     title: "API Uniplus",
-    description:
-      "Desenvolvimento de uma API responsável por extrair dados do sistema Uniplus, transformá-los em XML e transmiti-los para a API de uma conciliadora bancária, garantindo integração eficiente e segura.",
     image: project8,
-    tecnology: "Python | PostgreeSQL",
-    link: "PROJETO PRIVADO",
+    stack: ["Python", "PostgreSQL"],
   },
   {
-    id: 7,
     title: "Ismael Barbearia",
-    description:
-      "Desenvolvimento de uma landing page para destacar os serviços de uma barbearia, com design moderno, navegação intuitiva e otimização para conversões.",
     image: project9,
-    tecnology: "React",
-    link: "https://ismaelbarbearia.netlify.app/",
+    stack: ["React"],
+    demo: "https://ismaelbarbearia.netlify.app/",
   },
   {
-    id: 8,
     title: "Mavi APP",
-    description:
-      "Desenvolvimento de aplicativo mobile Android para capacitação de equipes comerciais, com foco em reprodução de vídeos e áudios, navegação intuitiva, identidade visual personalizada e integração com links externos.",
     image: project10,
-    tecnology: "Kotlin",
-    link: "PROJETO PRIVADO",
+    stack: ["Kotlin"],
   },
   {
-    id: 9,
     title: "Book",
-    description:
-      "Desenvolvimento de um projeto voltado para exibir dados para empresas sobre faturamento, impostos e comissões, facilitando a análise financeira e tomada de decisões estratégicas.",
     image: project11,
-    tecnology: "Kotlin",
-    link: "PROJETO PRIVADO",
+    stack: ["Kotlin"],
+  },
+  {
+    title: "BRK Agro Bots",
+    image: project12,
+    stack: ["Mercado Livre", "Shopee"],
+  },
+  {
+    title: "Gestão RH",
+    image: project13,
+    stack: ["Dashboard", "RH"],
+  },
+  {
+    title: "LG IA",
+    image: project14,
+    stack: ["WhatsApp", "IA"],
+    demo: "https://lgia.com.br",
   },
 ];
 
+const stack = [
+  {
+    title: "Front-end",
+    path: "~/web",
+    items: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Angular", "Tailwind", "Bootstrap"],
+  },
+  { title: "Back-end & Dados", path: "~/server", items: ["Python", "SQL"] },
+  { title: "Mobile", path: "~/mobile", items: ["Kotlin"] },
+];
+
+const getAge = (birth: string) => {
+  const today = new Date();
+  const b = new Date(birth);
+  let age = today.getFullYear() - b.getFullYear();
+  const m = today.getMonth() - b.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < b.getDate())) age--;
+  return age;
+};
+
+const SectionTitle = ({ tag, children }: { tag: string; children: string }) => (
+  <Reveal>
+    <p className="font-mono text-xs text-accent">{tag}</p>
+    <h2 className="mt-3 max-w-md font-display text-4xl font-bold text-white">
+      {children}
+    </h2>
+  </Reveal>
+);
+
+const codeLines: [string, string][] = [
+  ["01", 'const dev = {'],
+  ["02", '  nome: "Gabriel Braga",'],
+  ["03", '  cargo: "Full Stack & Mobile",'],
+  ["04", '  local: "Uberlândia, MG",'],
+  ["05", '  formacao: "ADS + Pós Full Stack",'],
+  ["06", '  stack: ["React", "TypeScript",'],
+  ["07", '          "Python", "Kotlin", "SQL"],'],
+  ["08", "  disponivel: true,"],
+  ["09", "};"],
+  ["10", ""],
+  ["11", "__comment__"],
+  ["12", 'dev.build("seu projeto");'],
+];
+
 export default function Home() {
-  const [selectedProject, setSelectedProject] = useState<{
-    link: Url | string;
-    private?: string;
-    id: number;
-    title: string;
-    description: string;
-    image: StaticImageData;
-    tecnology: string;
-  } | null>(null);
-  const getAge = (birthDateString: string) => {
-    const today = new Date();
-    const birthDate = new Date(birthDateString);
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const m = today.getMonth() - birthDate.getMonth();
-
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-
-    return age;
-  };
-
-  // Se seu aniversário é 15/07 e você tem 23 anos em 2026, seu ano de nascimento é 2003
   const age = getAge("2003-07-15");
+  const { t } = useLang();
+
   return (
-    <div>
-      <div className="relative min-h-fit flex flex-col items-center justify-center ">
-        <div className="absolute inset-0">
-          <Image
-            src={city}
-            alt="Cidade moderna"
-            layout="fill"
-            objectFit="cover"
-            className="opacity-70"
-          />
-          {/* Overlay escuro */}
-          <div className="absolute inset-0 bg-black/80"></div>
-        </div>
+    <div className="min-h-screen bg-bg text-slate-300">
+      <Navbar />
 
-        {/* Conteúdo sobre a imagem */}
-        <div className="relative w-full ">
-          {/* Navbar */}
-          <Navbar />
-
-          {/* Seção principal */}
-          <section
-            id="inicio"
-            className="flex flex-col items-center justify-center mt-10 pt-28"
-          >
-            <div className="relative w-60 h-60 rounded-full overflow-hidden border-2 border-transparent mb-4 animate-float">
-              <Image
-                src={eu}
-                alt="Foto de Gabriel Braga"
-                fill
-                className="object-cover"
-              />
-            </div>
-
-            <div>
-              <HeroSection />
-            </div>
-          </section>
-
-          <section className="bg-primary flex flex-col lg:flex-row px-10 py-36 w-full ">
-            {/* Imagem - 30% */}
-            <div className="flex-[5] lg:flex-[4] flex justify-center pb-16 lg:pb-0 lg:justify-end lg:pr-20  items-center animate-float">
-              <Image
-                className="border rounded-lg border-transparent w-full max-w-[400px]"
-                src={eusection}
-                width={600}
-                height={400}
-                alt="Foto Gabriel Braga"
-              />
-            </div>
-
-            {/* Texto - 70% */}
-            <div
-              id="sobre"
-              className="md:flex-[5] lg:flex-[6]  flex flex-col scroll-mt-20"
+      {/* Hero */}
+      <section className="relative overflow-hidden border-b border-line">
+        <BgVideo src="/13506092_1920_1080_30fps.mp4" />
+        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-6 py-24 lg:grid-cols-2">
+          <div>
+            <span className="inline-flex items-center gap-2 rounded-full border border-line bg-card px-3 py-1 font-mono text-[11px] text-slate-400">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              {t.hero.available}
+            </span>
+            <p className="mt-8 font-mono text-sm text-accent">{t.hero.hello}</p>
+            <h1
+              aria-label="Gabriel Braga"
+              className="mt-2 min-h-[1.1em] whitespace-nowrap font-display text-[10vw] font-bold text-white sm:text-6xl"
             >
-              <div className="text-white  text-5xl sm:text-6xl mb-8 font-montserrat font-bold group max-w-96">
-                <span className="border-b-4 border-[#FF6B6B] pb-1 group-hover:border-none transition-all duration-400">
-                  So
-                </span>
-                bre{" "}
-                <span className="pb-1 group-hover:border-b-4 border-[#FF6B6B] transition-all duration-400">
-                  Mim
-                </span>
-              </div>
-
-              <div className="text-white mb-6 max-w-3xl lg:text-2xl">
-                Sou graduado em Análise e Desenvolvimento de Sistemas e
-                atualmente curso uma pós-graduação em Desenvolvimento Full
-                Stack. Tenho experiência como desenvolvedor mobile e full stack,
-                atuando no desenvolvimento de interfaces modernas, responsivas e
-                focadas na experiência do usuário. Atualmente trabalho com
-                Python, SQL e participei de projetos mobile, ampliando minha
-                atuação em diferentes camadas do desenvolvimento de software.
-              </div>
-
-              {/* Cartão de informações */}
-              <div className="bg-[#1E2232] p-6 rounded-lg border border-[#FF6B6B] w-full max-w-3xl">
-                <div className="grid sm:grid-cols-2 gap-4 text-white text-sm">
-                  <p>
-                    <span className="font-semibold text-[#FF6B6B]">Nome:</span>{" "}
-                    Gabriel Braga
-                  </p>
-                  <p>
-                    <span className="font-semibold text-[#FF6B6B]">Idade:</span>{" "}
-                    {age} anos
-                  </p>
-                  <p>
-                    <span className="font-semibold text-[#FF6B6B]">
-                      Telefone:
-                    </span>{" "}
-                    +55 34 98894-1337
-                  </p>
-                  <p>
-                    <span className="font-semibold text-[#FF6B6B]">
-                      Cidade:
-                    </span>{" "}
-                    Uberlândia-MG
-                  </p>
-                </div>
-                <a
-                  href="https://www.dropbox.com/scl/fi/k3cz0sokb2qqf6p8a1ec6/Curr-culo-Gabriel-Braga.pdf?rlkey=cjjhrai2rulijru1pougnbn2c&st=j2ri6vzo&dl=1
-"
-                  download="Curriculo_Gabriel_Braga.pdf"
-                  className="mt-6 bg-[#FF6B6B] text-white px-6 py-2 rounded-md font-semibold hover:bg-red-600 transition-all inline-block text-center"
-                >
-                  DOWNLOAD CV
-                </a>
-              </div>
-            </div>
-          </section>
-        </div>
-      </div>
-
-      <section
-        id="projetos"
-        className="bg-[#25273E] pt-9 px-10 pb-9 scroll-mt-20"
-      >
-        <div className="text-white text-5xl sm:text-6xl mb-8 font-montserrat font-bold container pb-8 group max-w-44">
-          <span className="border-b-4 border-[#FF6B6B] pb-1 group-hover:border-none transition-all duration-400">
-            Pr
-          </span>
-          oje
-          <span className="pb-1 group-hover:border-b-4 border-[#FF6B6B] transition-all duration-400">
-            tos
-          </span>
-        </div>
-
-        {/* Grid de Cards */}
-        <div>
-          {/* Grid de Cards */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {projects.map((project) => (
-              <div
-                key={project.id}
-                className="relative bg-transparent p-4 rounded-lg border border-[#FF6B6B] text-white shadow-lg cursor-pointer transition-all"
-                onClick={() => setSelectedProject(project)}
+              <HeroName />
+            </h1>
+            <p className="mt-4 font-display text-3xl text-slate-400">
+              {t.hero.role}
+            </p>
+            <p className="mt-6 max-w-md text-slate-400">
+              {t.hero.intro}
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href="#projetos"
+                className="inline-flex items-center gap-2 rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-bg transition-opacity hover:opacity-90"
               >
-                {/* Imagem */}
-                <div className="w-full h-80 relative rounded-md overflow-hidden">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    layout="fill"
-                    objectFit="cover"
-                  />
-
-                  {/* Overlay ao passar o mouse */}
-                  <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-70 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                    <h3 className="text-xl font-semibold">{project.title}</h3>
-                  </div>
-                </div>
-              </div>
-            ))}
+                {t.hero.viewProjects} <ArrowRight size={16} />
+              </a>
+              <a
+                href="#contato"
+                className="rounded-md border border-line px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:border-accent"
+              >
+                {t.hero.talk}
+              </a>
+            </div>
+            <div className="mt-8 flex gap-3">
+              {[
+                { icon: faGithub, href: "https://github.com/GabrielBraga15/", label: "GitHub" },
+                { icon: faLinkedinIn, href: "https://www.linkedin.com/in/gabriel-braga-93216a240/", label: "LinkedIn" },
+                { icon: faWhatsapp, href: "https://wa.me/553488941337", label: "WhatsApp" },
+              ].map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={s.label}
+                  className="flex h-9 w-9 items-center justify-center rounded-md border border-line bg-card text-slate-400 transition-colors hover:border-accent hover:text-accent"
+                >
+                  <FontAwesomeIcon icon={s.icon} className="h-4 w-4" />
+                </a>
+              ))}
+            </div>
           </div>
 
-          {/* Modal */}
-          {selectedProject && (
-            <div
-              className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4"
-              onClick={() => setSelectedProject(null)}
+          {/* Code card */}
+          <div className="overflow-hidden rounded-xl border border-line bg-card shadow-2xl">
+            <div className="flex items-center gap-2 border-b border-line px-4 py-3">
+              <span className="h-2.5 w-2.5 rounded-full bg-slate-600" />
+              <span className="h-2.5 w-2.5 rounded-full bg-slate-600" />
+              <span className="h-2.5 w-2.5 rounded-full bg-slate-600" />
+              <span className="ml-3 font-mono text-xs text-slate-500">developer.ts</span>
+            </div>
+            <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-7">
+              {codeLines.map(([n, raw]) => {
+                const line = raw === "__comment__" ? t.hero.comment : raw;
+                return (
+                <div key={n} className="flex gap-4">
+                  <span className="select-none text-slate-600">{n}</span>
+                  <span
+                    className={
+                      line.startsWith("//") ? "text-slate-500" : "text-emerald-200"
+                    }
+                  >
+                    {line}
+                  </span>
+                </div>
+                );
+              })}
+            </pre>
+          </div>
+        </div>
+      </section>
+
+      {/* Sobre */}
+      <section id="sobre" className="scroll-mt-16 border-b border-line">
+        <div className="mx-auto grid max-w-6xl gap-12 px-6 py-24 lg:grid-cols-2">
+          <div>
+            <SectionTitle tag={t.about.tag}>{t.about.title}</SectionTitle>
+            <p className="mt-6 text-slate-400">{t.about.p1}</p>
+            <p className="mt-4 text-slate-400">{t.about.p2}</p>
+            <Reveal delay={150}>
+              <div className="mt-8 grid grid-cols-2 gap-3">
+                {[
+                  [t.about.age, `${age} ${t.about.years}`],
+                  [t.about.city, "Uberlândia-MG"],
+                  [t.about.education, t.about.educationValue],
+                  [t.about.phone, "+55 34 98894-1337"],
+                ].map(([k, v]) => (
+                  <div key={k} className="rounded-lg border border-line bg-card px-4 py-3">
+                    <p className="font-mono text-[10px] text-slate-500">{k}</p>
+                    <p className="mt-1 text-sm font-semibold text-white">{v}</p>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+          <Reveal delay={150}>
+            <Portrait alt={t.about.photoAlt} />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Stack */}
+      <section id="stack" className="scroll-mt-16 border-b border-line">
+        <div className="mx-auto max-w-6xl px-6 py-24">
+          <SectionTitle tag={t.stack.tag}>{t.stack.title}</SectionTitle>
+          <div className="mt-12 grid gap-4 md:grid-cols-3">
+            {stack.map((g, gi) => (
+              <Reveal key={g.title} delay={gi * 150} className="h-full">
+              <div className="h-full rounded-xl border border-line bg-card p-5">
+                <div className="flex items-baseline justify-between">
+                  <h3 className="font-display text-lg font-semibold text-white">{g.title === "Back-end & Dados" ? t.stack.backend : g.title}</h3>
+                  <span className="font-mono text-xs text-slate-500">{g.path}</span>
+                </div>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {g.items.map((i) => (
+                    <span
+                      key={i}
+                      className="flex items-center gap-2 rounded-md border border-line bg-bg px-2.5 py-1 font-mono text-xs text-slate-300"
+                    >
+                      <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                      {i}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Projetos */}
+      <section
+        id="projetos"
+        className="relative scroll-mt-16 overflow-hidden border-b border-line"
+      >
+        <BgVideo src="/projetos-video.mp4" />
+        <div className="relative mx-auto max-w-6xl px-6 py-24">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <SectionTitle tag={t.projectsSection.tag}>{t.projectsSection.title}</SectionTitle>
+            <a
+              href="https://github.com/GabrielBraga15/"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 font-mono text-xs text-accent hover:underline"
             >
-              <div
-                className="bg-gray-900 text-white p-6 rounded-lg shadow-lg max-w-md w-full"
-                onClick={(e) => e.stopPropagation()}
+              {t.projectsSection.github} <ArrowUpRight size={14} />
+            </a>
+          </div>
+
+          <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {projects.map((p, i) => (
+              <Reveal key={p.title} delay={(i % 3) * 150} className="h-full">
+              <article
+                className="flex h-full flex-col overflow-hidden rounded-xl border border-line bg-card transition-colors hover:border-accent/60"
               >
-                <h2 className="text-2xl font-bold mb-2">
-                  {selectedProject.title}
-                </h2>
-                <p className="mb-4 text-gray-200">
-                  {selectedProject.description}
-                </p>
-                <p className="text-sm text-gray-400 mb-2">
-                  Tecnologias usadas: {selectedProject.tecnology}
-                </p>
-                <p className="mb-4 text-gray-400">
-                  <div className="flex text-sm flex-row gap-2">
-                    Link ou repositório do projeto:{" "}
-                    {selectedProject.link === "PROJETO PRIVADO" ? (
-                      <span className="text-[#FF6B6B]">Projeto Privado</span>
-                    ) : (
-                      <Link
-                        target="_blank"
-                        href={selectedProject.link}
-                        passHref
+                <div className="bg-grid relative h-44">
+                  <Image
+                    src={p.image}
+                    alt={p.title}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover object-top"
+                  />
+                  <span className="absolute left-3 top-3 rounded bg-bg/80 px-1.5 py-0.5 font-mono text-[11px] text-accent">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <div className="flex flex-1 flex-col p-5">
+                  <h3 className="font-display text-xl font-semibold text-white">{p.title}</h3>
+                  <p className="mt-2 flex-1 text-sm text-slate-400">{t.projects[p.title]}</p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {p.stack.map((s) => (
+                      <span
+                        key={s}
+                        className="rounded border border-line bg-bg px-2 py-0.5 font-mono text-[11px] text-slate-400"
                       >
-                        <p className="text-[#FF6B6B] hover:underline">
-                          Clique aqui
-                        </p>
-                      </Link>
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="mt-5 flex gap-5 text-sm text-white">
+                    {p.code && (
+                      <a href={p.code} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 hover:text-accent">
+                        <Code2 size={14} /> {t.projectsSection.code}
+                      </a>
+                    )}
+                    {p.demo && (
+                      <a href={p.demo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 hover:text-accent">
+                        <ArrowUpRight size={14} /> {t.projectsSection.demo}
+                      </a>
+                    )}
+                    {!p.code && !p.demo && (
+                      <span className="inline-flex items-center gap-1.5 text-slate-500">
+                        <Lock size={14} /> {t.projectsSection.private}
+                      </span>
                     )}
                   </div>
-                </p>
-                <button
-                  className="mt-4 bg-[#FF6B6B] hover:bg-red-600 px-4 py-2 rounded-md"
-                  onClick={() => setSelectedProject(null)}
-                >
-                  Fechar
-                </button>
-              </div>
-            </div>
-          )}
+                </div>
+              </article>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
-      <section
-        id="habilidades"
-        className="bg-primary pt-20 px-10 pb-20 scroll-mt-20"
-      >
-        <div className="text-white text-5xl sm:text-6xl mb-8 font-montserrat font-bold container pb-8 group max-w-40">
-          <span className="border-b-4 border-[#FF6B6B] pb-1 group-hover:border-none transition-all duration-300">
-            Ha
-          </span>
-          bilidad
-          <span className="pb-1 group-hover:border-b-4 border-[#FF6B6B] transition-all duration-300">
-            es
-          </span>
-        </div>
 
-        <div className="flex items-center flex-col sm:flex-row sm:flex-wrap gap-5">
-          {[
-            { name: "HTML", image: html },
-            { name: "CSS", image: css },
-            { name: "JavaScript", image: js },
-            { name: "React", image: react },
-            { name: "Angular", image: angular },
-            { name: "Typescript", image: typescript },
-            { name: "Tailwind", image: tailwind },
-            { name: "Boostrap", image: bootstrap },
-            { name: "Kotlin", image: kotlin },
-            { name: "Python", image: python },
-            { name: "SQL", image: sql },
-          ].map((skill, index) => (
-            <div
-              key={index}
-              className="w-[120px]  p-4 bg-[#25273E] rounded-lg text-center transition-transform duration-300 hover:-translate-y-2 hover:bg-white/20"
-            >
-              <Image
-                src={skill.image}
-                alt={skill.name}
-                className="w-16 h-16 object-contain mx-auto mb-3 "
-              />
-              <p className="text-white font-bold">{skill.name}</p>
-            </div>
-          ))}
+      {/* Contato */}
+      <section id="contato" className="scroll-mt-16 border-b border-line">
+        <div className="mx-auto max-w-6xl px-6 py-24">
+          <Reveal>
+            <ContactForm />
+          </Reveal>
         </div>
       </section>
-      <section
-        id="contato"
-        className="bg-[#25273E] pt-9 px-10 pb-9 scroll-mt-10 "
-      >
-        <div className="flex flex-col md:flex-row gap-8">
-          {/* Formulário */}
-          <ContactForm />
-        </div>
-      </section>
+
+      <footer className="mx-auto flex max-w-6xl flex-wrap justify-between gap-2 px-6 py-8 font-mono text-xs text-slate-500">
+        <span>© {new Date().getFullYear()} Gabriel Braga</span>
+        <span>
+          {t.footer.made} <span className="text-accent">React</span> {t.footer.coffee} · Uberlândia-MG
+        </span>
+      </footer>
     </div>
   );
 }
